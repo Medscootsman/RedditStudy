@@ -1,3 +1,5 @@
 *.json
 *.RData
 *.RDataTmp
+.Rhistory
+reddit.Rproj
