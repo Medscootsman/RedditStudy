@@ -2,18 +2,18 @@
     "collab_server" : "",
     "contents" : "",
     "created" : 1552909376678.000,
-    "dirty" : true,
+    "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
     "hash" : "0",
     "id" : "26DE23F1",
-    "lastKnownWriteTime" : 1552911942,
-    "last_content_update" : 1552912676129,
+    "lastKnownWriteTime" : 1552921279,
+    "last_content_update" : 1552921279657,
     "path" : "~/reddit/theDonald.R",
     "project_path" : null,
     "properties" : {
-        "cursorPosition" : "23,0",
-        "scrollLine" : "10"
+        "cursorPosition" : "0,0",
+        "scrollLine" : "0"
     },
     "relative_order" : 2,
     "source_on_save" : false,
