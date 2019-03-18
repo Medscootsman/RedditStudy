@@ -19,7 +19,7 @@ library(ggraph)
 
 options(stringsAsFactors = FALSE)
 
-donaldData = stream_in(file("data/PUBATTLEGROUNDS.json"), pagesize = 5000)
+donaldData = stream_in(file("data/FortNiteBR.json"), pagesize = 5000)
 
 donaldDataframe = as.data.frame(data)
 
@@ -85,7 +85,7 @@ Donaldcomments_top_clean %>%
   coord_flip() +
   labs(x = "Words",
        y = "Count",
-       title = "Most commonly used english words in /r/the_donald, December 2018")
+       title = "Most commonly used english words in /r/FortniteBR, December 2018")
 
 Donaldcomment_data_paired <- Donaldcommentdata %>%
   dplyr::select(Comment) %>%

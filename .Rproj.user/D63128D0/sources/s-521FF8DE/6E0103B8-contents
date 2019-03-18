@@ -69,7 +69,7 @@ createGraphs <- function(data, subreddit, minimumCountLinks) {
             colors = brewer.pal(6, "Dark2"))
   
   #freq graph
-  dataFilter1_top_words %>% 
+  datafilter1_top_clean %>% 
     count(word, sort = TRUE) %>%
     top_n(30) %>%
     mutate(word = reorder(word, n)) %>%
