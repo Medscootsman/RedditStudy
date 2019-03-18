@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552907884414.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "6E0103B8",
+    "lastKnownWriteTime" : 1552909274,
+    "last_content_update" : 1552909274393,
+    "path" : "~/Reddit project/averages.r",
+    "project_path" : "averages.r",
+    "properties" : {
+        "cursorPosition" : "160,0",
+        "scrollLine" : "157"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
