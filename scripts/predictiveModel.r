@@ -15,11 +15,15 @@ library(widyr)
 # plotting packages
 library(igraph)
 library(ggraph)
+library(GGally)
 options(stringsAsFactors = FALSE)
 
-data = stream_in(file("data/unitedkingdom_short.json"), pagesize = 50)
+comments = stream_in(file("data/unitedkingdom_short.json"), pagesize = 50)
 
 dataframe = as.data.frame(data)
 
-createGraphs(data, "/r/unitedkingdom", 75)
+comments_specifics = data.frame(User = comments$author,
+                                Date = as.POSIXct(comments$created_utc, origin='1970-01-01'),
+                                Score = comments$score,
+                                UserBirthday = as.POSIXct(comments$author_created_utc, origin='1970-01-01'))
 
