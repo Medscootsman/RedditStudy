@@ -7,6 +7,7 @@ Various project files notes, meetings, peers excel.
 
 [JSON Data share](https://drive.google.com/drive/folders/1zN64XBXvPS6WJErXhNPxr9qZ1goDNl5t)  
 Inludes singular subreddits that have been parsed, also has shortned versions of them.  
+[C++ Parser](https://github.com/Medscootsman/RedditStudy/blob/master/scripts/parser/subreddit_parser.cpp)  
 short = removed pointless columns, removed score < 0, removed deleted comments, removed top bots (there could still be more bots)
 
 # Useful Links
