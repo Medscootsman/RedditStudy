@@ -68,7 +68,19 @@ createGraphs <- function(data, subreddit, minimumCountLinks) {
             max.words = 200, random.order = FALSE, rot.per = 0.25, 
             colors = brewer.pal(6, "Dark2"))
   
-  #pairing words
+  #freq graph
+  datafilter1_top_clean %>% 
+    count(word, sort = TRUE) %>%
+    top_n(30) %>%
+    mutate(word = reorder(word, n)) %>%
+    ggplot(aes(x = word, y = n)) +
+    geom_col() +
+    xlab(NULL) +
+    coord_flip() +
+    labs(x = "Words",
+         y = "Count",
+         title = paste("Most commonly used english words in ", subreddit))
+  
   Datacomment_data_paired <- dataframe %>%
     dplyr::select(Comment) %>%
     mutate(Comment = removeWords(Comment, stop_words$word)) %>%
@@ -82,7 +94,6 @@ createGraphs <- function(data, subreddit, minimumCountLinks) {
   
   head(data_Comments_Separated)
   
-  #word connections
   data_Comments_Separated %>%
     filter(n >= minimumCountLinks) %>%
     filter(!word1 == "shit") %>%
@@ -120,36 +131,6 @@ createGraphs <- function(data, subreddit, minimumCountLinks) {
          subtitle = "December 2018",
          x = "", y = "") +
     theme_void()
-  
-  #freq graph
-  datafilter1_top_clean %>% 
-    count(word, sort = TRUE) %>%
-    top_n(30) %>%
-    mutate(word = reorder(word, n)) %>%
-    ggplot(aes(x = word, y = n)) +
-    geom_col() +
-    xlab(NULL) +
-    coord_flip() +
-    labs(x = "Words",
-         y = "Count",
-         title = paste("Most commonly used english words in ", subreddit))
-}
-
-#unused freq function
-createfreqGraph <- function(words, subreddit) {
-  #freq graph
-  head(words)
-  words %>% 
-    count(word, sort = TRUE) %>%
-    top_n(30) %>%
-    mutate(word = reorder(word, n)) %>%
-    ggplot(aes(x = word, y = n)) +
-    geom_col() +
-    xlab(NULL) +
-    coord_flip() +
-    labs(x = "Words",
-         y = "Count",
-         title = paste("Most commonly used english words in ", subreddit))
 }
 
 data = stream_in(file("data/dankmemes.json"), pagesize = 5000)
