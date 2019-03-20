@@ -3,3 +3,4 @@
 *.RDataTmp
 .Rhistory
 reddit.Rproj
+.Rproj.user
