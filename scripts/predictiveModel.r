@@ -39,8 +39,12 @@ comments_specifics = data.frame(User = comments$author,
 
 meanscore = mean(comments_specifics$Score)
 
+#subsetting experiment
+
+comments_above50 <- subset(comments_specifics, Score >= 30)
+
 #turn it into a corpus
-body = Corpus(VectorSource(comments_specifics$Text))
+body = Corpus(VectorSource(comments_above50$Text))
 
 
 #clean it up
@@ -58,6 +62,8 @@ body = tm_map(body, stemDocument)
 body = tm_map(body, function(x) iconv(enc2utf8(x), sub = "byte"))
 
 term_count <- freq_terms(body, 20)
+
+plot(term_count)
 
 body_tdm <- TermDocumentMatrix(body)
 
