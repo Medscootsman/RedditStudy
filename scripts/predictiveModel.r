@@ -52,7 +52,7 @@ comments_high <- subset(comments_specifics, Score >= 60);
 comments_100 <- subset(comments_specifics, Score > 100)
 
 #turn it into a corpus
-body = Corpus(VectorSource(comments_above50$Text))
+body = Corpus(VectorSource(comments_low$Text))
 
 
 #clean it up
