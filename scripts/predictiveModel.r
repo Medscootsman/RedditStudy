@@ -45,7 +45,7 @@ comments_below0 <- subset(comments_specifics, Score < 0)
 
 comments_above30 <- subset(comments_specifics, Score >= 30 & Score <= 60)
 
-comments_low <- subset(comments_specifics, Score > 0 & score < 30)
+comments_low <- subset(comments_specifics, Score > 0 & Score < 30)
 
 comments_high <- subset(comments_specifics, Score >= 60);
 
