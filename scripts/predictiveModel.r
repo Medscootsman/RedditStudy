@@ -27,7 +27,7 @@ library(ggthemes)
 
 options(stringsAsFactors = FALSE)
 
-comments = stream_in(file("data/unitedkingdom_short.json"), pagesize = 50)
+comments = stream_in(file("data/FortNiteBR.json"), pagesize = 50)
 
 dataframe = as.data.frame(data)
 
@@ -41,9 +41,15 @@ meanscore = mean(comments_specifics$Score)
 
 #subsetting experiment
 
-comments_above30 <- subset(comments_specifics, Score >= 30)
+comments_below0 <- subset(comments_specifics, Score < 0)
+
+comments_above30 <- subset(comments_specifics, Score >= 30 & Score <= 60)
 
 comments_low <- subset(comments_specifics, Score > 0 & score < 30)
+
+comments_high <- subset(comments_specifics, Score >= 60);
+
+comments_100 <- subset(comments_specifics, Score > 100)
 
 #turn it into a corpus
 body = Corpus(VectorSource(comments_above50$Text))
