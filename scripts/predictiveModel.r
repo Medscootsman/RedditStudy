@@ -41,7 +41,9 @@ meanscore = mean(comments_specifics$Score)
 
 #subsetting experiment
 
-comments_above50 <- subset(comments_specifics, Score >= 30)
+comments_above30 <- subset(comments_specifics, Score >= 30)
+
+comments_low <- subset(comments_specifics, Score > 0 & score < 30)
 
 #turn it into a corpus
 body = Corpus(VectorSource(comments_above50$Text))
