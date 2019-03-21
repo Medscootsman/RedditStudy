@@ -24,6 +24,7 @@ library(quanteda)
 library(ggthemes)
 library(dendextend)
 library(ggthemes)
+library(stringr)
 
 options(stringsAsFactors = FALSE)
 
@@ -45,14 +46,14 @@ comments_below0 <- subset(comments_specifics, Score < 0)
 
 comments_above30 <- subset(comments_specifics, Score >= 30 & Score <= 60)
 
-comments_low <- subset(comments_specifics, Score > 0 & Score < 30)
+comments_low <- subset(comments_specifics, Score > 0 & Score < 20)
 
-comments_high <- subset(comments_specifics, Score >= 60);
+comments_high <- subset(comments_specifics, Score >= 20 & Score <= 100)
 
 comments_100 <- subset(comments_specifics, Score > 100)
 
 #turn it into a corpus
-body = Corpus(VectorSource(comments_low$Text))
+body = Corpus(VectorSource(comments_100$Text))
 
 
 #clean it up
@@ -62,14 +63,19 @@ body = tm_map(body, removePunctuation)
 
 body = tm_map(body, removeWords, stopwords("english"))
 
-body = tm_map(body, removeWords, c("im", "myðŸ", "½hel", "x200b", "also", "its", "&qt", "gt", "just", "now", "like", "see", "know", "way", "get", "that", "use", "want", "can", "dont", "one", "say", "even", "thing", "go"))
-
 #stemming
 body = tm_map(body, stemDocument)
 
 body = tm_map(body, function(x) iconv(enc2utf8(x), sub = "byte"))
 
+body = tm_map(body, removeWords, c("im", "myðŸ", ",", "f", "u", "'", "½hel", "s", "t", "got", "day", "lol", "ã‚„", "x200b", "also", "its", "&qt", "gt", "just", "now", "like", "see", "know", "way", "get", "that", "use", "want", "can", "dont", "one", "say", "even", "thing", "go"))
+
+
+#str_replace_all(body, "â", "")
+
 term_count <- freq_terms(body, 20)
+
+term_count = subset(term_count, WORD != "ã‚„")
 
 plot(term_count)
 
