@@ -5,7 +5,7 @@ library(jsonlite)
 library(ggplot2)
 
 #Data folder location
-dataFolder = "../data/"
+dataFolder = "../../data/"
 #Subreddit to parse
 subreddit = "LateStageCapitalism_short"
 
