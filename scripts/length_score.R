@@ -7,10 +7,10 @@ library(ggplot2)
 #Data folder location
 dataFolder = "../data/"
 #Subreddit to parse
-subreddit = "LateStageCapitalism_short.json"
+subreddit = "LateStageCapitalism_short"
 
 #Loads JSON file
-comments <- stream_in(file(paste(dataFolder,subreddit, sep = "")))
+comments <- stream_in(file(paste(dataFolder,subreddit, ".json", sep = "")))
 
 #Plot graph
 plot <- ggplot(comments, aes(x=nchar(comments$body), y=comments$score))
