@@ -42,11 +42,11 @@ meanscore = mean(comments_specifics$Score)
 
 #subsetting experiment
 
-comments_below0 <- subset(comments_specifics, Score < 0)
+comments_below0 <- subset(comments_specifics, Score < 50)
 
 comments_low <- subset(comments_specifics, Score > 0 & Score < 50)
 
-comments_high <- subset(comments_specifics, Score >= 10)
+comments_high <- subset(comments_specifics, Score >= 50)
 
 
 #turn it into a corpus
