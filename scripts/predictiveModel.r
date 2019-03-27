@@ -42,7 +42,7 @@ meanscore = mean(comments_specifics$Score)
 
 #subsetting experiment
 
-comments_below0 <- subset(comments_specifics, Score < 50)
+comments_below0 <- subset(comments_specifics, Score < 0)
 
 comments_low <- subset(comments_specifics, Score > 0 & Score < 50)
 
@@ -55,10 +55,10 @@ corpus_High = Corpus(VectorSource(comments_high$Text))
 
 #clean it up
 corpus_High = tm_map(corpus_Low
-                    , tolower)
+                     , tolower)
 
 corpus_High = tm_map(corpus_Low
-                    , removePunctuation)
+                     , removePunctuation)
 
 corpus_High= tm_map(corpus_High
                     , removeWords, stopwords("english"))
@@ -84,20 +84,20 @@ corpus_Low= Corpus(VectorSource(comments_below0$Text))
 corpus_Low= tm_map(corpus_Low, tolower)
 
 corpus_Low= tm_map(corpus_Low
-                    , removePunctuation)
+                   , removePunctuation)
 
 corpus_Low= tm_map(corpus_Low
-                    , removeWords, stopwords("english"))
+                   , removeWords, stopwords("english"))
 
 #stemming
 corpus_Low= tm_map(corpus_Low
-                    , stemDocument)
+                   , stemDocument)
 
 corpus_Low= tm_map(corpus_Low
-                    , function(x) iconv(enc2utf8(x), sub = "byte"))
+                   , function(x) iconv(enc2utf8(x), sub = "byte"))
 
 corpus_Low= tm_map(corpus_Low
-                    , removeWords, c("im", "myðŸ", ",", "f", "u", "'", "½hel", "s", "t", "got", "day", "lol", "ã‚„", "x200b", "also", "its", "&qt", "gt", "just", "now", "like", "see", "know", "way", "get", "that", "use", "want", "can", "dont", "one", "say", "even", "thing", "go"))
+                   , removeWords, c("im", "myðŸ", ",", "f", "u", "'", "½hel", "s", "t", "got", "day", "lol", "ã‚„", "x200b", "also", "its", "&qt", "gt", "just", "now", "like", "see", "know", "way", "get", "that", "use", "want", "can", "dont", "one", "say", "even", "thing", "go"))
 
 
 #str_replace_all(body, "â", "")
@@ -169,3 +169,21 @@ common_words <- cbind(common_words, difference)
 common_words <- common_words[order(common_words[, 3],
                                    decreasing = T), ]
 head(common_words)
+
+top25_df <- data.frame(x = common_words[1:25, 1],
+                       y = common_words[1:25, 2],
+                       labels = rownames(common_words[1:25, ]))
+# Make pyramid plot
+pyramid.plot(top25_df$x, top25_df$y,
+             labels = top25_df$labels, 
+             main = "Words in Common",
+             gap = 2000,
+             laxlab = NULL,
+             raxlab = NULL, 
+             unit = NULL,
+             top.labels = c("High Score",
+                            "Words",
+                            "Low Score")
+)
+
+
