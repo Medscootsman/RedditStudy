@@ -46,7 +46,7 @@ comments_below0 <- subset(comments_specifics, Score < 0)
 
 comments_low <- subset(comments_specifics, Score > 0 & Score < 50)
 
-comments_high <- subset(comments_specifics, Score >= 50)
+comments_high <- subset(comments_specifics, Score >= 10)
 
 
 #turn it into a corpus
@@ -159,3 +159,13 @@ colnames(combined_m)=c("High score", "Low score")
 #commonality.cloud(combined_m,
 #                  colors = "red",
 #                  max.words = 50)
+
+
+common_words <- subset(combined_m, combined_m[, 1] > 0 & combined_m[, 2] > 0)
+
+difference <- abs(common_words[, 1] - common_words[, 2])
+
+common_words <- cbind(common_words, difference)
+common_words <- common_words[order(common_words[, 3],
+                                   decreasing = T), ]
+head(common_words)
