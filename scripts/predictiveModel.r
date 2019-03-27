@@ -52,7 +52,7 @@ comments_high <- subset(comments_specifics, Score >= 50)
 #turn it into a corpus
 corpus_High = Corpus(VectorSource(comments_high$Text))
 
-
+Corpus
 #clean it up
 corpus_High = tm_map(corpus_Low
                      , tolower)
