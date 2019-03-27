@@ -156,6 +156,6 @@ combined_m = as.matrix(combined_tdm)
 colnames(combined_m)=c("High score", "Low score")
 
 #commonality cloud 
-commonality.cloud(combined_m,
-                  colors = "red",
-                  max.words = 50)
+#commonality.cloud(combined_m,
+#                  colors = "red",
+#                  max.words = 50)
