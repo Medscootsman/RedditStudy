@@ -155,10 +155,10 @@ combined_m = as.matrix(combined_tdm)
 
 colnames(combined_m)=c("High score", "Low score")
 
-#commonality cloud 
-#commonality.cloud(combined_m,
-#                  colors = "red",
-#                  max.words = 50)
+commonality cloud 
+commonality.cloud(combined_m,
+                  colors = "red",
+                  max.words = 50)
 
 
 common_words <- subset(combined_m, combined_m[, 1] > 0 & combined_m[, 2] > 0)
