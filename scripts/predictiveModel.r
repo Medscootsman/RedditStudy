@@ -114,6 +114,13 @@ body_tdm <- TermDocumentMatrix(corpus_Low)
 
 body_dtm <- DocumentTermMatrix(corpus_Low)
 
+body_tdm2 <- removeSparseTerms(body_tdm, sparse = 0.9)
+
+hc <- hclust(d = dist(body_tdm2, method = "euclidean"), method = "complete")
+# Plot a dendrogram
+plot(hc)
+
+
 #high comments
 
 term_count <- freq_terms(corpus_High, 20)
@@ -127,6 +134,7 @@ body_tdm <- TermDocumentMatrix(corpus_High)
 body_dtm <- DocumentTermMatrix(corpus_High)
 
 body_tdm2 <- removeSparseTerms(body_tdm, sparse = 0.9)
+
 hc <- hclust(d = dist(body_tdm2, method = "euclidean"), method = "complete")
 # Plot a dendrogram
 plot(hc)
