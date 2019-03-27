@@ -44,15 +44,18 @@ comments = stream_in(file("data/FortNiteBR.json"), pagesize = 50)
 
 dataframe = as.data.frame(data)
 
+meanscore = mean(comments$score)
+
 comments_specifics = data.frame(User = comments$author,
                                 Date = as.POSIXct(comments$created_utc, origin='1970-01-01'),
                                 Text = comments$body,
                                 Score = comments$score,
                                 UserBirthday = as.POSIXct(comments$author_created_utc, origin='1970-01-01'))
 
-meanscore = mean(comments_specifics$Score)
+comments_specifics$Popularity = ifelse(comments_specifics$Score > meanscore, "High", "Low")
 
-#subsetting experiment
+
+
 
 comments_below0 <- subset(comments_specifics, Score < 0)
 
@@ -60,9 +63,43 @@ comments_low <- subset(comments_specifics, Score > 0 & Score < 50)
 
 comments_high <- subset(comments_specifics, Score >= 50)
 
-comments_high_text = as.character(comments_high$Text)
+comments_high_text = as.character(comments_specifics$Text)
 
 corpus_High = Corpus(VectorSource(comments_high$Text))
 
+#tokenisation process
+
 highscoreTokens <-  tokens(comments_high_text, what="word",
                            remove_numbers = TRUE, remove_punct=TRUE, remove_symbols=TRUE, remove_hyphens=TRUE)
+
+#data prep
+
+highscoreTokens <- tokens_tolower(highscoreTokens)
+
+filterwords <- c("is", "is", "then", "also", "and", "im", "lol")
+
+highscoreTokens <- tokens_select(highscoreTokens, stopwords(), selection = "remove")
+
+highscoreTokens=tokens_remove(highscoreTokens, filterwords)
+
+highscoreTokens=tokens_wordstem(highscoreTokens, language = "english")
+
+highscoreTokens = tokens_ngrams(highscoreTokens, n = 1:2)
+
+highscoretokensDFM = dfm(highscoreTokens, tolower = FALSE)
+
+tokensSparse <- convert(highscoreTokens, "tm")
+
+tm::removeSparseTerms(tokensSparse, 0.7)
+
+dfm_trim(highscoretokensDFM, min_docfreq = 0.3)
+
+x=dfm_trim(highscoretokensDFM, sparsity = 0.98)
+
+df = convert(x, to="data.frame")
+
+highscoreTokensDF = cbind(comments_specifics$Popularity, df)
+
+head(highscoreTokensDF)
+
+
