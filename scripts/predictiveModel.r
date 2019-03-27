@@ -126,6 +126,11 @@ body_tdm <- TermDocumentMatrix(corpus_High)
 
 body_dtm <- DocumentTermMatrix(corpus_High)
 
+body_tdm2 <- removeSparseTerms(body_tdm, sparse = 0.9)
+hc <- hclust(d = dist(body_tdm2, method = "euclidean"), method = "complete")
+# Plot a dendrogram
+plot(hc)
+
 
 #creating term freq
 
@@ -155,7 +160,7 @@ combined_m = as.matrix(combined_tdm)
 
 colnames(combined_m)=c("High score", "Low score")
 
-commonality cloud 
+#commonality cloud 
 commonality.cloud(combined_m,
                   colors = "red",
                   max.words = 50)
