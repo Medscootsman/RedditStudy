@@ -105,4 +105,14 @@ highscoreTokensDF = cbind(comments_specifics$Popularity, df)
 
 head(highscoreTokensDF)
 
+names(highscoreTokensDF)[names(highscoreTokensDF) == "comments_specifics$Popularity"] <- "Popularity"
+names(highscoreTokensDF)=make.names(names(highscoreTokensDF))
 
+highscoreTokensDF$Popularity = factor(highscoreTokensDF$Popularity)
+
+tree = rpart(formula = Popularity ~ ., data = highscoreTokensDF, method = "class",
+             control = rpart.control(minsplit = 200, minbucket = 30, cp = 0.0001))
+
+printcp(tree)
+
+plotcp(tree)
