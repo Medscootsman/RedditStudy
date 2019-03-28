@@ -88,7 +88,7 @@ highscoreTokens = tokens_ngrams(highscoreTokens, n = 1:2)
 
 highscoretokensDFM = dfm(highscoreTokens, tolower = FALSE)
 
-tokensSparse <- convert(highscoreTokens, "tm")
+tokensSparse <- convert(highscoretokensDFM, "tm")
 
 tm::removeSparseTerms(tokensSparse, 0.7)
 
