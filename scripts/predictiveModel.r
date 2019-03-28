@@ -38,6 +38,12 @@ comments_specifics = data.frame(User = comments$author,
                                 Score = comments$score,
                                 UserBirthday = as.POSIXct(comments$author_created_utc, origin='1970-01-01'))
 
+comments_specifics = subset(comments_specifics, User != "SavageAxeBot" & User != "KeepingdataDank" & User != "AutoModerator" 
+                            & User != "dataMods" & User != "BattleBusBot" & User != "MemeInvestor_bot" & User != "Transcribot"
+                            & User != "Transcribot" & User != "commonmisspellingbot" & User != "TiltedTowersBot" & User != "stormshieldonebot"
+                            & User != "WikiTextBot" & User != "RemindMeBot" & User != "thank_mr_skeltal_bot" & User != "societybot"
+                            & User != "rick_rolled_bot" & User != "NoSkinBot")
+
 meanscore = mean(comments_specifics$Score)
 
 #subsetting experiment
