@@ -116,3 +116,9 @@ tree = rpart(formula = Popularity ~ ., data = highscoreTokensDF, method = "class
 printcp(tree)
 
 plotcp(tree)
+
+bestcp=tree$cptable[which.min(tree$cptable[,"xerror"]),"CP"]
+bestcp
+ptree=prune(tree,cp=bestcp)
+rpart.plot(ptree,cex = 0.6)
+prp(ptree, faclen = 0, cex = 0.5, extra = 2)
