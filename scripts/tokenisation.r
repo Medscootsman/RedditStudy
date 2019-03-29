@@ -40,7 +40,7 @@ library(igraph)
 library(fpc)
 library(RCA)
 
-comments = stream_in(file("data/FortNiteBR.json"), pagesize = 50)
+comments = stream_in(file("data/LateStageCapitalism.json"), pagesize = 50)
 
 dataframe = as.data.frame(data)
 
@@ -93,11 +93,11 @@ highscoretokensDFM = dfm(highscoreTokens, tolower = FALSE)
 
 tokensSparse <- convert(highscoretokensDFM, "tm")
 
-tm::removeSparseTerms(tokensSparse, 0.7)
+tm::removeSparseTerms(tokensSparse, 0.8)
 
-dfm_trim(highscoretokensDFM, min_docfreq = 0.3)
+dfm_trim(highscoretokensDFM, min_docfreq = 0.5)
 
-x=dfm_trim(highscoretokensDFM, sparsity = 0.98)
+x=dfm_trim(highscoretokensDFM, sparsity = 0.99)
 
 df = convert(x, to="data.frame")
 
@@ -111,7 +111,9 @@ names(highscoreTokensDF)=make.names(names(highscoreTokensDF))
 highscoreTokensDF$Popularity = factor(highscoreTokensDF$Popularity)
 
 tree = rpart(formula = Popularity ~ ., data = highscoreTokensDF, method = "class",
-             control = rpart.control(minsplit = 200, minbucket = 30, cp = 0.0001))
+             control = rpart.control(minsplit = 20, minbucket = round(minsplit/3), cp = 0.01,  
+                                     maxcompete = 4, maxsurrogate = 5, usesurrogate = 2, xval = 10,
+                                     surrogatestyle = 0, maxdepth = 30))
 
 printcp(tree)
 
@@ -122,3 +124,6 @@ bestcp
 ptree=prune(tree,cp=bestcp)
 rpart.plot(ptree,cex = 0.6)
 prp(ptree, faclen = 0, cex = 0.5, extra = 2)
+
+#random forest
+
