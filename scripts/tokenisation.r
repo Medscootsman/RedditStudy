@@ -52,13 +52,19 @@ comments_specifics = data.frame(User = comments$author,
                                 Score = comments$score,
                                 UserBirthday = as.POSIXct(comments$author_created_utc, origin='1970-01-01'))
 
+
+#split between mean score (for now)
 comments_specifics$Popularity = ifelse(comments_specifics$Score > meanscore, "High", "Low")
+
+#bot filtering
 
 comments_specifics = subset(comments_specifics, User != "SavageAxeBot" & User != "KeepingdataDank" & User != "AutoModerator" 
                             & User != "dataMods" & User != "BattleBusBot" & User != "MemeInvestor_bot" & User != "Transcribot"
                             & User != "Transcribot" & User != "commonmisspellingbot" & User != "TiltedTowersBot" & User != "stormshieldonebot"
                             & User != "WikiTextBot" & User != "RemindMeBot" & User != "thank_mr_skeltal_bot" & User != "societybot"
                             & User != "rick_rolled_bot" & User != "NoSkinBot")
+
+#subset the data
 
 comments_below0 <- subset(comments_specifics, Score < 0)
 
@@ -113,10 +119,9 @@ names(highscoreTokensDF)=make.names(names(highscoreTokensDF))
 highscoreTokensDF$Popularity = factor(highscoreTokensDF$Popularity)
 
 tree = rpart(formula = Popularity ~ ., data = highscoreTokensDF, method = "class",
-             control = rpart.control(minsplit = 20, minbucket = round(minsplit/3), cp = 0.01,  
+             control = rpart.control(minsplit = 2, minbucket = 0.5), cp = 0.01,  
                                      maxcompete = 4, maxsurrogate = 5, usesurrogate = 2, xval = 10,
-                                     surrogatestyle = 0, maxdepth = 30))
-
+                                     surrogatestyle = 0, maxdepth = 30)
 printcp(tree)
 
 plotcp(tree)
@@ -134,3 +139,4 @@ library(randomForest)
 RF = randomForest(Popularity~., data=highscoreTokensDF)
 
 varImpPlot = (RF)
+
