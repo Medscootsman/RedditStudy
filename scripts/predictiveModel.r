@@ -28,7 +28,7 @@ library(stringr)
 
 options(stringsAsFactors = FALSE)
 
-comments = stream_in(file("data/FortNiteBR.json"), pagesize = 50)
+comments = stream_in(file("data/GlobalOffensive.json"), pagesize = 50)
 
 dataframe = as.data.frame(data)
 
