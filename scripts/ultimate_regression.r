@@ -56,11 +56,11 @@ tier_table <- tier_table%>%mutate(time_of_day=as.POSIXct(created_utc, origin="19
 
 
 #Pick columns for regression
-tier_table <- tier_table%>%select(-edited, -gilded, -id, -is_submitter, -link_id, -no_follow, -parent_id, -permalink, -send_replies, -stickied, -subreddit)
+#tier_table <- tier_table%>%select(-edited, -gilded, -id, -is_submitter, -link_id, -no_follow, -parent_id, -permalink, -send_replies, -stickied, -subreddit)
 
 
 #Regression summaries and correlations
-summary(lm(score ~ time_since_post, tier_table))
+#summary(lm(score ~ time_since_post, tier_table))
 
 
 #Regression Plots
@@ -75,15 +75,19 @@ numposts.vs.dayofweek <-tier_table%>%
   group_by(Date)%>%
   tally()%>%
   mutate(Day=format(Date,"%A"))%>%
+  ungroup()%>%
   group_by(Day)%>%
   summarize(Mean = mean(n, na.rm=TRUE))
 
 numposts.vs.dayofweek$Day <- factor(numposts.vs.dayofweek$Day, levels= c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"))
 numposts.vs.dayofweek <- numposts.vs.dayofweek[order(numposts.vs.dayofweek$Day), ]
 
-ggplot(numposts.vs.dayofweek, aes(x=Day, y=Mean)) + geom_point() + 
-  labs(x="Day of Week", y="Average Number of Comments", title="Average Number of Comments vs Day of Week", subtitle = "")
+numposts.vs.dayofweek$nums <- c(1,1,1,1,1,1,1)
 
+numposts.vs.dayofweek.plot <- ggplot(numposts.vs.dayofweek, aes(x=Day, y=Mean, group=nums, col=nums)) + geom_line() + geom_point() +
+  labs(x="Day of Week", y="Average Number of Comments", title="Average Number of Comments vs Day of Week", subtitle = "From /r/politics December 2018") + 
+  theme(legend.position="none")
+numposts.vs.dayofweek.plot
 
 
 
@@ -98,9 +102,12 @@ score.vs.dayofweek <- tier_table%>%
 score.vs.dayofweek$Day <- factor(score.vs.dayofweek$Day, levels= c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"))
 score.vs.dayofweek <- score.vs.dayofweek[order(score.vs.dayofweek$Day), ]
 
-ggplot(score.vs.dayofweek, aes(x=Day, y=Mean)) + geom_point() + 
-  labs(x="Day of Week", y="Average Comment Score", title="Average Comment Score vs Day of Week", subtitle = "")
+score.vs.dayofweek$group <- c(1,1,1,1,1,1,1)
 
+score.vs.dayofweek.plot <- ggplot(score.vs.dayofweek, aes(x=Day, y=Mean, group=group, col=group)) + geom_line() + geom_point() + 
+  labs(x="Day of Week", y="Average Comment Score", title="Average Comment Score vs Day of Week", subtitle = "From /r/politics December 2018") + 
+  theme(legend.position="none")
+score.vs.dayofweek.plot
 
 
 
@@ -120,7 +127,7 @@ numposts.vs.timeofday$Day <- factor(numposts.vs.timeofday$Day, levels= c("Monday
 numposts.vs.timeofday <- numposts.vs.timeofday[order(numposts.vs.timeofday$Day), ]
 
 numposts.vs.timeofday.plot <- ggplot(numposts.vs.timeofday, aes(x=Time, y=Mean, col=Day, group=Day)) + geom_line() + geom_point() + 
-  labs(x="Time of the Day (24h)", y="Avg Number of Comments", title="Number of posts vs Time of Day", subtitle = "")
+  labs(x="Time of the Day (24h)", y="Avg Number of Comments", title="Number of posts vs Time of Day", subtitle = "From /r/politics December 2018")
 numposts.vs.timeofday.plot
 
 
@@ -147,7 +154,7 @@ avgscore.vs.timeofday$Day <- factor(avgscore.vs.timeofday$Day, levels= c("Monday
 avgscore.vs.timeofday <- avgscore.vs.timeofday[order(avgscore.vs.timeofday$Day), ]
 
 avgscore.vs.timeofday.plot <- ggplot(avgscore.vs.timeofday, aes(x=Time, y=Mean2, col=Day, group=Day)) + geom_line() + geom_point() + 
-  labs(x="Time of the Day (24h)", y="Avg Comment Score", title="Avg Comment Score vs Time of Day", subtitle = "Avg for All Weekdays for December 2018")
+  labs(x="Time of the Day (24h)", y="Avg Comment Score", title="Avg Comment Score vs Time of Day", subtitle = "From /r/politics December 2018")
 avgscore.vs.timeofday.plot
 
 
@@ -175,12 +182,12 @@ avgscore.vs.timeofday2 <- avgscore.vs.timeofday2%>%
 avgscore.vs.timeofday2$Day <- factor(avgscore.vs.timeofday2$Day, levels= c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"))
 avgscore.vs.timeofday2 <- avgscore.vs.timeofday2[order(avgscore.vs.timeofday2$Day), ]
 
-avgscore.vs.timeofday.plot2 <- ggplot(avgscore.vs.timeofday2, aes(x=Time, y=Mean2*100, col=Day, group=Day)) + geom_line() + geom_point() + 
-  labs(x="Time of the Day (24h)", y="% Successful Comments", title="% Successful Comments vs Time of Day", subtitle = "% Successful Comments for All Weekdays for December 2018")
-avgscore.vs.timeofday.plot2
+success.vs.timeofday.plot2 <- ggplot(avgscore.vs.timeofday2, aes(x=Time, y=Mean2*100, col=Day, group=Day)) + geom_line() + geom_point() + 
+  labs(x="Time of the Day (24h)", y="% Successful Comments", title="% Successful Comments vs Time of Day", subtitle = "From /r/politics December 2018")
+success.vs.timeofday.plot2
 
 
-#Average of all days
+#AVERAGE OF ALL DAYS
 avgscore.vs.timeofday3 <- tier_table%>%
   select(time_of_day,tier,score)%>%
   filter(tier==1)%>%
@@ -195,8 +202,11 @@ avgscore.vs.timeofday3 <- avgscore.vs.timeofday3%>%
   group_by(Time)%>%
   summarize(Mean2 = mean(Mean, na.rm=TRUE))
 
-avgscore.vs.timeofday.plot3 <- ggplot(avgscore.vs.timeofday3, aes(x=Time, y=Mean2)) + geom_line() + geom_point() + 
-  labs(x="Time of the Day (24h)", y="Avg Score", title="Avg Score vs Time of Day", subtitle = "Avg Score vs Time of day")
+avgscore.vs.timeofday3$group <- c(1)
+
+avgscore.vs.timeofday.plot3 <- ggplot(avgscore.vs.timeofday3, aes(x=Time, y=Mean2, group=group, col=group)) + geom_line() + geom_point() + 
+  labs(x="Time of the Day (24h)", y="Avg Comment Score", title="Avg Comment Score vs Time of Day", subtitle = "From /r/politics December 2018") + 
+  theme(legend.position="none")
 avgscore.vs.timeofday.plot3
 
 
@@ -204,7 +214,7 @@ avgscore.vs.timeofday.plot3
 test <- tier_table%>%
   select(created_utc,score)%>%
   mutate(time_of_day=format(as.POSIXct(created_utc, origin="1970-01-01"),"%H"))%>%
-  group_by(time_of_day)%>%summarize(Mean = mean(score, na.rm=TRUE))%>%mutate(time_of_day=as.POSIXct(time_of_day,format='%H'))
+  group_by(time_of_day)%>%summarize(Mean = mean(score, na.rm=TRUE))%>%mutate(time_of_day=as.POSIXct(time_of_day,format='%H')) 
 
 test$test <- c(1:24)
 
@@ -237,6 +247,6 @@ ggplot(tier_table%>%
 
 
 #EXPORT PICS
-png("avgscore-vs-timeofday.png", width=3000, height=2000, res=300)
-avgscore.vs.timeofday.plot
+png("avgscore-vs-timeofday2.png", width=3000, height=2000, res=300)
+avgscore.vs.timeofday.plot3
 dev.off()
