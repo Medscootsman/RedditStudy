@@ -28,7 +28,7 @@ library(stringr)
 
 options(stringsAsFactors = FALSE)
 
-comments = stream_in(file("data/GlobalOffensive.json"), pagesize = 50)
+comments = stream_in(file("data/LateStageCapitalism.json"), pagesize = 50)
 
 dataframe = as.data.frame(data)
 
@@ -196,7 +196,7 @@ top25_df <- data.frame(x = common_words[1:25, 1],
 pyramid.plot(top25_df$x, top25_df$y,
              labels = top25_df$labels, 
              main = "Words in Common",
-             gap = 1000,
+             gap = 500,
              laxlab = NULL,
              raxlab = NULL, 
              unit = NULL,

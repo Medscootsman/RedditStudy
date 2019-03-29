@@ -93,15 +93,17 @@ highscoretokensDFM = dfm(highscoreTokens, tolower = FALSE)
 
 tokensSparse <- convert(highscoretokensDFM, "tm")
 
-tm::removeSparseTerms(tokensSparse, 0.8)
+tm::removeSparseTerms(tokensSparse, 0.5)
 
-dfm_trim(highscoretokensDFM, min_docfreq = 0.5)
+dfm_trim(highscoretokensDFM, min_docfreq = 0.3)
 
 x=dfm_trim(highscoretokensDFM, sparsity = 0.99)
 
 df = convert(x, to="data.frame")
 
 highscoreTokensDF = cbind(comments_specifics$Popularity, df)
+
+highscoreTokensDF$minimum_wage = NULL
 
 head(highscoreTokensDF)
 
@@ -127,3 +129,8 @@ prp(ptree, faclen = 0, cex = 0.5, extra = 2)
 
 #random forest
 
+library(randomForest)
+
+RF = randomForest(Popularity~., data=highscoreTokensDF)
+
+varImpPlot = (RF)
