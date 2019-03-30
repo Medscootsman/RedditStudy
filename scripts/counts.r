@@ -15,6 +15,7 @@ library(widyr)
 # plotting packages
 library(igraph)
 library(ggraph)
+library(plotrix)
 
 data = stream_in(file("data/dankmemes.json"), pagesize = 5000)
 
@@ -76,3 +77,7 @@ barplot(totals.data2$totalsData,
         ylab = "Point average",
         names.arg = totals.data2$totalsLabel,
         col = "LightBlue")
+
+#pie chart
+
+pie3D(totals.data2$totalsData, totals.data2$totalsLabel, explod = 0.1, main = "Total Comments per Subreddit (December 2018)")
