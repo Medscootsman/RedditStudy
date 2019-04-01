@@ -159,6 +159,17 @@ dankmemesTotal = count(data)
 
 createGraphs(data, "/r/DankMemes", 1000)
 
+dataframe = as.data.frame(data.frame(User = data$author, 
+                                     Date = as.POSIXct(data$created_utc, origin='1970-01-01'), 
+                                     Comment = data$body,
+                                     Score = data$score))
+
+ggplot(dataframe, aes(x=dataframe$Date, dataframe$Score)) +
+  geom_hex(bins = 70) +
+  theme_bw() +
+  ylab("Score") +
+  xlab("Date posted")
+
 data = stream_in(file("data/The_Donald.json"), pagesize = 5000)
 
 thedonaldAvgScore = mean(data$score)
@@ -170,6 +181,18 @@ data = stream_in(file("data/politics.json"), pagesize = 5000)
 politicsAvgScore = mean(data$score)
 
 #createGraphs(data, "/r/politics", 1000)
+
+dataframe = as.data.frame(data.frame(User = data$author, 
+                                     Date = as.POSIXct(data$created_utc, origin='1970-01-01'), 
+                                     Comment = data$body,
+                                     Score = data$score))
+
+ggplot(dataframe, aes(x=dataframe$Date, dataframe$Score)) +
+  geom_hex(bins = 70) +
+  theme_bw() +
+  ylab("Score") +
+  xlab("Date posted")
+  labs(main = "Distribution of comments on /r/Politics")
 
 data = stream_in(file("data/GlobalOffensive.json"), pagesize = 5000)
 
