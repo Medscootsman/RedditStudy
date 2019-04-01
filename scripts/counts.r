@@ -10,6 +10,8 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(tidytext)
+library(tidyverse)
+library(anytime)
 # coupled words analysis
 library(widyr)
 # plotting packages
@@ -17,11 +19,18 @@ library(igraph)
 library(ggraph)
 library(plotrix)
 
+#DANK MEMES
 data = stream_in(file("data/dankmemes.json"), pagesize = 5000)
 
 dankmemesAvgScore = mean(data$score)
 
 dankmemesTotal = count(data)
+
+dataframe = data.frame(User = data$author,
+                                PostTime = as.POSIXct(data$created_utc, origin='1970-01-01'),
+                                Text = data$body,
+                                Score = data$score,
+                                UserBirthday = as.POSIXct(data$author_created_utc, origin='1970-01-01'))
 
 data = stream_in(file("data/The_Donald.json"), pagesize = 5000)
 
