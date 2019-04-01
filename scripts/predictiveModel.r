@@ -28,7 +28,7 @@ library(stringr)
 
 options(stringsAsFactors = FALSE)
 
-comments = stream_in(file("data/LateStageCapitalism.json"), pagesize = 50)
+comments = stream_in(file("data/GlobalOffensive.json"), pagesize = 50)
 
 dataframe = as.data.frame(data)
 
@@ -50,9 +50,9 @@ meanscore = mean(comments_specifics$Score)
 
 comments_below0 <- subset(comments_specifics, Score < 0)
 
-comments_low <- subset(comments_specifics, Score > 0 & Score < 50)
+comments_low <- subset(comments_specifics, Score < 10)
 
-comments_high <- subset(comments_specifics, Score >= 50)
+comments_high <- subset(comments_specifics, Score > 10)
 
 
 #turn it into a corpus
