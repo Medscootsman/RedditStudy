@@ -169,7 +169,7 @@ data = stream_in(file("data/politics.json"), pagesize = 5000)
 
 politicsAvgScore = mean(data$score)
 
-createGraphs(data, "/r/politics", 1000)
+#createGraphs(data, "/r/politics", 1000)
 
 data = stream_in(file("data/GlobalOffensive.json"), pagesize = 5000)
 

@@ -36,7 +36,8 @@ comments_specifics = data.frame(User = comments$author,
                                 Date = as.POSIXct(comments$created_utc, origin='1970-01-01'),
                                 Text = comments$body,
                                 Score = comments$score,
-                                UserBirthday = as.POSIXct(comments$author_created_utc, origin='1970-01-01'))
+                                UserBirthday = as.POSIXct(comments$author_created_utc, origin='1970-01-01')
+                                TextLength)
 
 comments_specifics = subset(comments_specifics, User != "SavageAxeBot" & User != "KeepingdataDank" & User != "AutoModerator" 
                             & User != "dataMods" & User != "BattleBusBot" & User != "MemeInvestor_bot" & User != "Transcribot"
