@@ -28,7 +28,7 @@ library(stringr)
 
 options(stringsAsFactors = FALSE)
 
-comments = stream_in(file("data/politics.json"), pagesize = 50)
+comments = stream_in(file("data/canada.json"), pagesize = 50)
 
 dataframe = as.data.frame(data)
 
@@ -195,7 +195,7 @@ top25_df <- data.frame(x = common_words[1:25, 1],
 # Make pyramid plot
 pyramid.plot(top25_df$x, top25_df$y,
              labels = top25_df$labels, 
-             main = "Words in Common",
+             main = "Words in Common Between Low and High Comments in /r/canada",
              gap = 500,
              laxlab = NULL,
              raxlab = NULL, 
