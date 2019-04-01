@@ -195,8 +195,26 @@ fortniteBRScore = mean(data$score)
 
 createGraphs(data, "/r/fortniteBR", 650)
 
-avgsData <- round(c(dankmemesAvgScore, fortniteBRScore, GlobalOffensiveAvgScore, LateStageCapAvgScore, politicsAvgScore, pubgAvgScore, thedonaldAvgScore), 2)
-avgLabel <- c("DankMemes", "FortniteBR", "GlobalOffensive", "LateStageCap", "Politics", "PUBATTLEGROUNDS", "TheDonald")
+data = stream_in(file("data/unitedkingdom.json"))
+
+ukScore = mean(data$score)
+
+createGraphs(data, "/r/UnitedKingdom", 200)
+
+data = stream_in(file("data/canada.json"))
+
+canadaScore = mean(data$score)
+
+createGraphs(data, "/r/Canada", 200)
+
+data = stream_in(file("data/australia.json"))
+
+ausScore = mean(data$score)
+
+createGraphs(data, "/r/Australia", 200)
+
+avgsData <- round(c(dankmemesAvgScore, fortniteBRScore, GlobalOffensiveAvgScore, LateStageCapAvgScore, politicsAvgScore, pubgAvgScore, thedonaldAvgScore, ukScore, canadaScore, ausScore), 2)
+avgLabel <- c("DankMemes", "FortniteBR", "GlobalOffensive", "LateStageCap", "Politics", "PUBATTLEGROUNDS", "TheDonald", "UK", "Canada", "australia")
 
 averages.data <- data.frame(avgLabel, avgsData)
 
