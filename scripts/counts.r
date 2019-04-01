@@ -74,8 +74,21 @@ ukTotal = count(data)
 
 ukAvgScore = mean(data$score)
 
-totalsData <- round(c(dankmemesTotal$n, fortniteBRTotal$n, GlobalOffensiveTotal$n, LateStageCapTotal$n, politicsTotal$n, pubgTotal$n, thedonaldTotal$n, ukTotal$n), 2)
-totalsLabel <- c("DankMemes", "FortniteBR", "GlobalOffensive", "LateStageCap", "Politics", "PUBATTLEGROUNDS", "TheDonald", "UK")
+data = stream_in(file("data/canada.json"))
+
+canadaScore = mean(data$score)
+
+canadaTotal = count(data)
+
+data = stream_in(file("data/australia.json"))
+
+1user <- subset(data, data$author == "RedderBarron")
+australiaTotal = count(data)
+
+ausScore = mean(data$score)
+
+totalsData <- round(c(dankmemesTotal$n, fortniteBRTotal$n, GlobalOffensiveTotal$n, LateStageCapTotal$n, politicsTotal$n, pubgTotal$n, thedonaldTotal$n, ukTotal$n, australiaTotal$n, canadaTotal$n), 2)
+totalsLabel <- c("DankMemes", "FortniteBR", "GlobalOffensive", "LateStageCap", "Politics", "PUBATTLEGROUNDS", "TheDonald", "UK", "Australia", "Canada")
 
 totals.data <- data.frame(totalsLabel, totalsData)
 
