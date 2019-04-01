@@ -78,14 +78,14 @@ corpus_High = Corpus(VectorSource(comments_high$Text))
 
 #tokenisation process
 
-highscoreTokens <-  tokens(comments_high_text, what="word",
+highscoreTokens <-  tokens(as.character(comments_specifics$Text), what="word",
                            remove_numbers = TRUE, remove_punct=TRUE, remove_symbols=TRUE, remove_hyphens=TRUE)
 
 #data prep
 
 highscoreTokens <- tokens_tolower(highscoreTokens)
 
-filterwords <- c("is", "is", "then", "also", "and", "im", "lol")
+filterwords <- c("is", "thhat", "then", "also", "and", "im", "lol")
 
 highscoreTokens <- tokens_select(highscoreTokens, stopwords(), selection = "remove")
 
@@ -119,9 +119,7 @@ names(highscoreTokensDF)=make.names(names(highscoreTokensDF))
 highscoreTokensDF$Popularity = factor(highscoreTokensDF$Popularity)
 
 tree = rpart(formula = Popularity ~ ., data = highscoreTokensDF, method = "class",
-             control = rpart.control(minsplit = 2, minbucket = 0.5), cp = 0.01,  
-                                     maxcompete = 4, maxsurrogate = 5, usesurrogate = 2, xval = 10,
-                                     surrogatestyle = 0, maxdepth = 30)
+             control = rpart.control(minsplit = 0, minbucket = 0), cp = 0.00000000000000001)
 printcp(tree)
 
 plotcp(tree)

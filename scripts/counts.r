@@ -80,4 +80,4 @@ barplot(totals.data2$totalsData,
 
 #pie chart
 
-pie3D(totals.data2$totalsData, totals.data2$totalsLabel, explod = 0.1, main = "Total Comments per Subreddit (December 2018)")
+pie(totals.data2$totalsData, totals.data2$totalsLabel, explode = 3, main = "Total Comments per Subreddit (December 2018)")
