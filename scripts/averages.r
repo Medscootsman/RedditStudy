@@ -191,8 +191,8 @@ ggplot(dataframe, aes(x=dataframe$Date, dataframe$Score)) +
   geom_hex(bins = 70) +
   theme_bw() +
   ylab("Score") +
-  xlab("Date posted")
-  labs(main = "Distribution of comments on /r/Politics")
+  xlab("Date posted") +
+  labs(title = "Distribution of comments on /r/Politics")
 
 data = stream_in(file("data/GlobalOffensive.json"), pagesize = 5000)
 
@@ -203,6 +203,18 @@ createGraphs(data, "/r/GlobalOffensive", 400)
 data = stream_in(file("data/LateStageCapitalism.json"), pagesize = 5000)
 
 LateStageCapAvgScore = mean(data$score)
+
+dataframe = as.data.frame(data.frame(User = data$author, 
+                                     Date = as.POSIXct(data$created_utc, origin='1970-01-01'), 
+                                     Comment = data$body,
+                                     Score = data$score))
+
+ggplot(dataframe, aes(x=dataframe$Date, dataframe$Score)) +
+  geom_hex(bins = 70) +
+  theme_bw() +
+  ylab("Score") +
+  xlab("Date posted") +
+  labs(title = "Distribution of comments on /r/LateStageCapitalism")
 
 createGraphs(data, "/r/LateStageCapitalism", 50)
 
