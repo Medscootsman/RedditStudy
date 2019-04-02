@@ -82,8 +82,23 @@ canadaTotal = count(data)
 
 data = stream_in(file("data/australia.json"))
 
-1user <- subset(data, data$author == "RedderBarron")
-australiaTotal = count(data)
+authors <- data$author
+
+authorCorpus <- Corpus(VectorSource(authors))
+
+authorCorpus = tm_map(authorCorpus , tolower)
+
+authorCorpus = tm_map(authorCorpus 
+                   , removePunctuation)
+
+authorCorpus = tm_map(authorCorpus, removeWords, c("deleted", "automoderator", "b"))
+
+author_freq <- freq_terms(authorCorpus, 30)
+
+plot(author_freq) +
+  labs(title = "Most profilic redditors on /r/Australia")
+
+barplot(height = author_freq$FREQ)
 
 ausScore = mean(data$score)
 
