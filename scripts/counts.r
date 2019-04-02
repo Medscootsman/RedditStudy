@@ -83,11 +83,14 @@ findProfilicAuthors(data$author, "/r/GlobalOffensive")
 
 data = stream_in(file("data/LateStageCapitalism.json"), pagesize = 5000)
 
+#count/averages
 LateStageCapAvgScore = mean(data$score)
 
 LateStageCapTotal = count(data)
 
 uniqueauthors <- unique(data$author)
+
+#get profilic authors
 
 for(authors in uniqueauthors[1:1]) {
   authorCount = sum(str_count(authors, data$author))
@@ -105,7 +108,12 @@ for(authors in uniqueauthors[2:total$n]) {
   
 }
 
-authorsCount <- as.data.frame(authorsCount)
+#get top 10
+
+authorData <- authorData[with(authorData, order(-authorCount)),]
+
+authorDataFiltered <- authorData[1:40,]
+
 findProfilicAuthors(data$author, "/r/LateStageCapitalism")
 
 authors = data$author
