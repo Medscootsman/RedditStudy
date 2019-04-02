@@ -18,6 +18,29 @@ library(widyr)
 library(igraph)
 library(ggraph)
 library(plotrix)
+library(qdap)
+
+findProfilicAuthors <- function(authordata, subreddit) {
+  uniqueauthors <- authordata
+  
+  for(authors in uniqueauthors[1:1]) {
+    authorCount = sum(str_count(authors, data$author))
+    authorData <- data.frame(authors, authorCount)
+  }
+  
+  total = count(as.data.frame(uniqueauthors))
+  
+  for(authors in uniqueauthors[2:total$n]) {
+    
+    print(paste("PARSING ", authors))
+    authorCount = sum(str_count(authors, data$author))
+    currentAuthor <- data.frame(authors, authorCount)
+    authorData <- rbind(authorData, currentAuthor)
+    
+  }
+  
+  rm(authorData, currentAuthor)
+}
 
 #DANK MEMES
 data = stream_in(file("data/dankmemes.json"), pagesize = 5000)
@@ -32,11 +55,15 @@ dataframe = data.frame(User = data$author,
                                 Score = data$score,
                                 UserBirthday = as.POSIXct(data$author_created_utc, origin='1970-01-01'))
 
+findProfilicAuthors(data$author, "/r/Dankmemes")
+
 data = stream_in(file("data/The_Donald.json"), pagesize = 5000)
 
 thedonaldAvgScore = mean(data$score)
 
 thedonaldTotal = count(data)
+
+findProfilicAuthors(data$author, "/r/The_Donald")
 
 data = stream_in(file("data/politics.json"), pagesize = 5000)
 
@@ -44,11 +71,15 @@ politicsAvgScore = mean(data$score)
 
 politicsTotal = count(data)
 
+findProfilicAuthors(data$author, "/r/Politics")
+
 data = stream_in(file("data/GlobalOffensive.json"), pagesize = 5000)
 
 GlobalOffensiveAvgScore = mean(data$score)
 
 GlobalOffensiveTotal = count(data)
+
+findProfilicAuthors(data$author, "/r/GlobalOffensive")
 
 data = stream_in(file("data/LateStageCapitalism.json"), pagesize = 5000)
 
@@ -56,11 +87,36 @@ LateStageCapAvgScore = mean(data$score)
 
 LateStageCapTotal = count(data)
 
+uniqueauthors <- unique(data$author)
+
+for(authors in uniqueauthors[1:1]) {
+  authorCount = sum(str_count(authors, data$author))
+  authorData <- data.frame(authors, authorCount)
+}
+
+total = count(as.data.frame(uniqueauthors))
+
+for(authors in uniqueauthors[2:total$n]) {
+  
+  print(paste("PARSING ", authors))
+  authorCount = sum(str_count(authors, data$author))
+  currentAuthor <- data.frame(authors, authorCount)
+  authorData <- rbind(authorData, currentAuthor)
+  
+}
+
+authorsCount <- as.data.frame(authorsCount)
+findProfilicAuthors(data$author, "/r/LateStageCapitalism")
+
+authors = data$author
+
 data = stream_in(file("data/PUBATTLEGROUNDS.json"), pagesize = 5000)
 
 pubgAvgScore = mean(data$score)
 
 pubgTotal = count(data)
+
+findProfilicAuthors(data$author, "/r/PUBATTLEGROUNDS")
 
 data = stream_in(file("data/FortNiteBR.json"), pagesize = 5000)
 
@@ -68,11 +124,15 @@ fortniteBRScore = mean(data$score)
 
 fortniteBRTotal = count(data)
 
+findProfilicAuthors(data$author, "/r/FortNiteBR")
+
 data = stream_in(file("data/unitedkingdom.json"), pagesize = 5000)
 
 ukTotal = count(data)
 
 ukAvgScore = mean(data$score)
+
+findProfilicAuthors(data$author, "/r/UnitedKingdom")
 
 data = stream_in(file("data/canada.json"))
 
@@ -80,27 +140,15 @@ canadaScore = mean(data$score)
 
 canadaTotal = count(data)
 
+findProfilicAuthors(data$author, "/r/canada")
+
 data = stream_in(file("data/australia.json"))
 
-authors <- data$author
-
-authorCorpus <- Corpus(VectorSource(authors))
-
-authorCorpus = tm_map(authorCorpus , tolower)
-
-authorCorpus = tm_map(authorCorpus 
-                   , removePunctuation)
-
-authorCorpus = tm_map(authorCorpus, removeWords, c("deleted", "automoderator", "b"))
-
-author_freq <- freq_terms(authorCorpus, 30)
-
-plot(author_freq) +
-  labs(title = "Most profilic redditors on /r/Australia")
-
-barplot(height = author_freq$FREQ)
+australiaTotal = count(data)
 
 ausScore = mean(data$score)
+
+findProfilicAuthors(data$author, "/r/Australia")
 
 totalsData <- round(c(dankmemesTotal$n, fortniteBRTotal$n, GlobalOffensiveTotal$n, LateStageCapTotal$n, politicsTotal$n, pubgTotal$n, thedonaldTotal$n, ukTotal$n, australiaTotal$n, canadaTotal$n), 2)
 totalsLabel <- c("DankMemes", "FortniteBR", "GlobalOffensive", "LateStageCap", "Politics", "PUBATTLEGROUNDS", "TheDonald", "UK", "Australia", "Canada")
