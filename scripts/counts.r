@@ -39,6 +39,10 @@ findProfilicAuthors <- function(authordata, subreddit) {
     
   }
   
+  authorData <- authorData[with(authorData, order(-authorCount)),]
+  
+  authorDataFiltered <- authorData[1:40,]
+  
   rm(authorData, currentAuthor)
 }
 
