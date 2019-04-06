@@ -5,3 +5,11 @@
 reddit.Rproj
 .Rproj.user
 data
+report/*.loa
+report/*.lof
+report/*.log
+report/*.lol
+report/*.lot
+report/thesis.synctex.gz
+report/*.toc
+*.aux
