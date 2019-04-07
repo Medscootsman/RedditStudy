@@ -136,6 +136,8 @@ plot(history)
 setwd("D:\\Users\\Andrew\\Documents\\RStudio")
 r_comments_all <- stream_in(file("politics_short.json"))
 
+r_comments_all%>%mutate(len = nchar(body))%>%summarize(Mean = mean(len, na.rm=TRUE))
+
 max_tier <- 10 #How far down the chain to go
 
 tier_table <- r_comments_all%>%
@@ -167,9 +169,14 @@ tier_table <- tier_table%>%
 
 tier_table <- tier_table%>%mutate(time_of_day=as.POSIXct(created_utc, origin="1970-01-01"))
 tier_table <- tier_table%>%filter(tier==1)
-tier_table2 <- tier_table%>%mutate(time = format(time_of_day,"%H:%M:%S"))%>%filter(time_since_post<3600,time>"11:00:00",time< "23:00:00")
 
+#Creating a comments set from the same time each day
+tier_table2 <- tier_table%>%mutate(time = format(time_of_day,"%H:%M:%S"))%>%filter(time_since_post<3600,time>"11:00:00",time< "23:00:00")
 comments.all <- tier_table2%>%select(body,score)%>%mutate(Label=ifelse(score>=20,1,0))%>%select(-score)
+
+#Creating a comment set which includes post name
+post.names <- tier_table%>%left_join(tier_table%>%mutate(post=substr(permalink,29,nchar(permalink)-9))%>%select(post,id)%>%mutate(post = str_replace_all(post,"[[:punct:] 0123456789]+"," ")))
+comments.all <- post.names%>%select(body,post,score)%>%mutate(Label=ifelse(score>=50,1,0))%>%select(-score)
 
 #comments.all%>%group_by(Label)%>%tally()%>%mutate(percent=(n/1506774)*100) #Checking to see percent high to low, you need a score of 3 to make it 50/50 :P
 
@@ -180,15 +187,20 @@ comments.combined <- union_all(comments.high,comments.low)
 comments.combined.labels <- comments.combined$Label
 
 comments.combined <- comments.combined%>%mutate(body = tolower(body))%>%mutate(body = str_replace_all(body,"[[:punct:] 0123456789]+"," "))
+comments.combined <- comments.combined%>%mutate(post = tolower(post))%>%mutate(post = str_replace_all(post,"[[:punct:] 0123456789]+"," "))
 comments.combined <- comments.combined%>%select(-Label)
 
 comments.combined <- comments.combined%>%mutate(body = str_replace_all(body,"\n",""))
 comments.combined <- comments.combined%>%mutate(body = str_replace(gsub("\\s+", " ", str_trim(body)), "B", "b"))
+comments.combined <- comments.combined%>%mutate(post = str_replace_all(post,"\n",""))
+comments.combined <- comments.combined%>%mutate(post = str_replace(gsub("\\s+", " ", str_trim(post)), "B", "b"))
+
+comments.combined$combine <- paste(comments.combined$post,comments.combined$body)
 
 word.index <- comments.all%>%mutate(body = str_replace_all(body,"[[:punct:] 0123456789]+"," "))%>%unnest_tokens(word,body)%>%group_by(word)%>%tally()%>%arrange(desc(n))%>%head(50000)%>%select(-n)
 
 
-test.frame <- str_split(comments.combined$body, " ")
+test.frame <- str_split(comments.combined$combine, " ")
 
 #CREATE MATRICES
 test.matrix <- matrix(0, 40000, 128)
@@ -204,7 +216,7 @@ write.table(test.matrix2, file="data.txt", row.names=FALSE, col.names=FALSE, na=
 write.table(word.index, file="dataword.txt", row.names=FALSE, col.names=FALSE, na="") #Export dictionary
 
 #IMPORT DATA FROM C++
-comment.matrix.integer <- read.table("matrix2.txt",sep=",",header=FALSE)
+comment.matrix.integer <- read.table("post_and_comments.txt",sep=",",header=FALSE)
 for(val in 1:40000){
   for(val2 in 1:128){
     test.matrix[val,val2]=comment.matrix.integer[val,val2]
@@ -217,9 +229,11 @@ model <- keras_model_sequential()
 model %>% 
   layer_embedding(input_dim = vocab_size, output_dim = 64)%>%
   layer_global_average_pooling_1d()%>%
-  layer_dropout(0.6)%>%
-  layer_dense(units = 64, activation = "sigmoid")%>%
-  layer_dropout(0.6)%>%
+  layer_dropout(0.7)%>%
+  layer_dense(units = 64, activation = "relu")%>%
+  layer_dropout(0.7)%>%
+  layer_dense(units = 64, activation = "relu")%>%
+  layer_dropout(0.7)%>%
   layer_dense(units = 1, activation = "sigmoid")
 
 model %>% summary()
@@ -255,7 +269,7 @@ y_test <- comments.combined.labels2[38001:40000]
 history <- model %>% fit(
   partial_x_train,
   partial_y_train,
-  epochs = 40,
+  epochs = 20,
   batch_size = 128,
   validation_data = list(x_val, y_val),
   verbose=1
@@ -264,8 +278,23 @@ history <- model %>% fit(
 
 
 #EVALUATE THE MODEL
+count <- 0
+for(val in 1:2000){
+  if(y_test[val] == 1){
+    count <- count + 1
+  }
+}
+count
+x_test
 
 results <- model %>% evaluate(x_test, y_test)
 results
 
-plot(history)
+plots <- plot(history)
+plots <- ggplot(data.frame(history)%>%mutate(DataMetric = paste(metric,data)),aes(x=epoch,y=value,group=DataMetric,colour=DataMetric)) + geom_point() + geom_line() +
+  labs(x="epoch", y="value", title="History of model fit", subtitle = "using post + comment data")
+
+#EXPORT PICS
+png("keras_training.png", width=3000, height=2000, res=300)
+plots
+dev.off()
