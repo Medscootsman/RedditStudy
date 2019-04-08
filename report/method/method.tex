@@ -1,5 +1,22 @@
 \chapter{Method}\label{ch:Method}
 
+\section{The dataset}
+
+The dataset was the entire collection of every Reddit comment (including deleted comments) posted on December 2018. Due to the sheer size of the dataset being very hard to parse as one large dataset, it was decided to parse down comments to specific subreddits. (Table to be added in R)  The data was stored in the json format.
+\newline
+Each subreddit was placed its own json file and kept in cloud storage, allowing to be accessed by any of our team members. Each dataset has a varying level of bot created comments, which depends on how heavy the automated moderation is on each subreddit. To deal with this, we filtered out any users with a “-bot” suffix and any users that had a history of posting the the same type of comment repeatedly. An example of this would be AutoModerator, a popular bot used to automate moderation of subreddits. 
+
+\section {Data preparation}
+After clearing out the bot users, the data is further filtered out to only the required fields. The main ones user was Score, User, the content of the message, the date it was posted and the length of the message.
+
+For text mining and processing. It was required to prepare the text of the comments for meaningful analysis. The first step was to remove common words and filter out “stop words” used in the English dictionary. Afterwards, the text was stemmed to reduce words to their core meaning. An example of this would be reducing “enhancing” just to “enhance”. 
+
+Document term and term document matrices were created after the stemming process was completed, at this point it was possible to perform exploratory text analysis and to gain a better understanding of the vocabulary used by each subreddit community. This was done in order to prove that each subreddit provides a context which radically changes the vocabulary that each user uses. 
+
+\section {Comment features}
+
+\section {Machine learning experiment}
+
 
 
 \section{Conclusions}
