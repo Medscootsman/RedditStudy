@@ -1,15 +1,54 @@
 \begin{thebibliography}{1}
 
-\bibitem{kilgo_ng_riedl_lacasa-mas_2018}
-Kilgo DK, Ng YMM, Riedl MJ, Lacasa-Mas I.
-\newblock Reddit’s Veil of Anonymity: Predictors of engagement and
-  participation in media environments with hostile reputations.
-\newblock Social Media Society. 2018;4(4):205630511881021.
+\bibitem{7}
+{Thukral} S, {Meisheri} H, {Kataria} T, {Agarwal} A, {Verma} I, {Chatterjee} A,
+  et~al.
+\newblock Analyzing Behavioral Trends in Community Driven Discussion Platforms
+  Like Reddit.
+\newblock In: 2018 IEEE/ACM International Conference on Advances in Social
+  Networks Analysis and Mining (ASONAM); 2018. p. 662--669.
+
+\bibitem{4}
+Robertson A.
+\newblock Reddit bans “Fat People Hate” and other subreddits under new
+  harassment rules. [online]. 2015;Available from:
+  \url{https://www.theverge.com/2015/6/10/8761763/reddit-harassment-ban-fat-people-hate-subreddit}.
+
+\bibitem{3}
+{Van Mieghem} P.
+\newblock Human Psychology of Common Appraisal: The Reddit Score.
+\newblock IEEE Transactions on Multimedia. 2011 Dec;13(6):1404--1406.
+
+\bibitem{8}
+{Glenski} M, {Pennycuff} C, {Weninger} T.
+\newblock Consumers and Curators: Browsing and Voting Patterns on Reddit.
+\newblock IEEE Transactions on Computational Social Systems. 2017
+  Dec;4(4):196--206.
+
+\bibitem{5}
+Woolley S.
+\newblock Automating power: Social bot interference in global politics.
+\newblock First Monday. 2016;21(4).
+\newblock Available from:
+  \url{https://uncommonculture.org/ojs/index.php/fm/article/view/6161}.
 
 \bibitem{1}
-Serban IV, Sankar C, Germain M, Zhang S, Lin Z, Subramanian S, et~al.
-\newblock A Deep Reinforcement Learning Chatbot.
-\newblock CoRR. 2017;abs/1709.02349.
-\newblock Available from: \url{http://arxiv.org/abs/1709.02349}.
+Kilgo DK, Ng YMM, Riedl MJ, Lacasa-Mas I.
+\newblock Reddit's Veil of Anonymity: Predictors of engagement and
+  participation in media environments with hostile reputations.
+\newblock Social Media + Society. 2018;4(4):2056305118810216.
+\newblock Available from: \url{https://doi.org/10.1177/2056305118810216}.
+
+\bibitem{6}
+Segall J, Zamoshchin A.
+\newblock Predicting Reddit post popularity.
+\newblock nd): n pag Stanford University. 2012;.
+
+\bibitem{9}
+{Horne} BD, {Adali} S, {Sikdar} S.
+\newblock Identifying the Social Signals That Drive Online Discussions: A Case
+  Study of Reddit Communities.
+\newblock In: 2017 26th International Conference on Computer Communication and
+  Networks (ICCCN); 2017. p. 1--9.
 
 \end{thebibliography}
