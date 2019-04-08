@@ -10,6 +10,7 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(tidytext)
+library(broom)
 library(tidyverse)
 library(anytime)
 # coupled words analysis
@@ -162,10 +163,13 @@ ausScore = mean(data$score)
 
 findProfilicAuthors(data$author, "/r/Australia")
 
+avgsData <- round(c(dankmemesAvgScore, fortniteBRScore, GlobalOffensiveAvgScore, LateStageCapAvgScore, politicsAvgScore, pubgAvgScore, thedonaldAvgScore, ukScore, canadaScore, ausScore), 2)
 totalsData <- round(c(dankmemesTotal$n, fortniteBRTotal$n, GlobalOffensiveTotal$n, LateStageCapTotal$n, politicsTotal$n, pubgTotal$n, thedonaldTotal$n, ukTotal$n, australiaTotal$n, canadaTotal$n), 2)
 totalsLabel <- c("DankMemes", "FortniteBR", "GlobalOffensive", "LateStageCap", "Politics", "PUBATTLEGROUNDS", "TheDonald", "UK", "Australia", "Canada")
 
-totals.data <- data.frame(totalsLabel, totalsData)
+totals.data <- data.frame(totalsLabel, totalsData, avgsData)
+
+write.table(totals.data)
 
 totals.data2 <- totals.data[order(totals.data[,2], decreasing = TRUE),]
 
