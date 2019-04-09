@@ -1,0 +1,16 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: thesis.aux
+A level-1 auxiliary file: abstract/abstract.aux
+A level-1 auxiliary file: introduction/introduction.aux
+A level-1 auxiliary file: research/research.aux
+A level-1 auxiliary file: method/method.aux
+A level-1 auxiliary file: results/results.aux
+A level-1 auxiliary file: discussion/discussion.aux
+A level-1 auxiliary file: conclusion/conclusion.aux
+The style file: vancouver.bst
+A level-1 auxiliary file: bu.aux
+Database file #1: thesis.bib
+Warning--I didn't find a database entry for "kilgo_ng_riedl_lacasa-mas_2018"
+`journal' is a missing field, not a string, for entry 4
+while executing---line 1865 of file vancouver.bst
+Warning--empty journal in 4
+(There was 1 error message)

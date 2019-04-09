@@ -7,7 +7,7 @@ library(ggplot2)
 #Data folder location
 dataFolder = "../../data/"
 #Subreddit to parse
-subreddit = "LateStageCapitalism_short"
+subreddit = "funny_short"
 
 #Loads JSON file
 comments <- stream_in(file(paste(dataFolder,subreddit, ".json", sep = "")))
@@ -18,3 +18,5 @@ plot <- plot + geom_point()
 plot <- plot + stat_smooth(method="lm",col="red")
 plot <- plot + xlab('Comment Length (Number of Characters)') + ylab('Score')
 plot
+
+summary(lm(nchar(comments$body) ~ comments$score))
