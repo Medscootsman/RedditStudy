@@ -42,7 +42,7 @@ findProfilicAuthors <- function(authordata, subreddit) {
   
   authorData <- authorData[with(authorData, order(-authorCount)),]
   
-  authorDataFiltered <- authorData[1:40,]
+  authorDataFiltered <- authorData[1:40]
   
   rm(authorData, currentAuthor)
 }
@@ -60,7 +60,13 @@ dataframe = data.frame(User = data$author,
                                 Score = data$score,
                                 UserBirthday = as.POSIXct(data$author_created_utc, origin='1970-01-01'))
 
-findProfilicAuthors(data$author, "/r/Dankmemes")
+dankmemesUniqueauthors <- unique(data$author)
+
+dankmemesUniqueauthors <- distinct(as.data.frame(dankmemesUniqueauthors))
+
+dankmemesUniqueauthors = count(dankmemesUniqueauthors)
+
+#findProfilicAuthors(data$author, "/r/Dankmemes")
 
 data = stream_in(file("data/The_Donald.json"), pagesize = 5000)
 
@@ -68,7 +74,13 @@ thedonaldAvgScore = mean(data$score)
 
 thedonaldTotal = count(data)
 
-findProfilicAuthors(data$author, "/r/The_Donald")
+donaldUniqueauthors <- unique(data$author)
+
+donaldUniqueauthors <- distinct(as.data.frame(donaldUniqueauthors))
+
+donaldUniqueauthors = count(donaldUniqueauthors)
+
+#findProfilicAuthors(data$author, "/r/The_Donald")
 
 data = stream_in(file("data/politics.json"), pagesize = 5000)
 
@@ -76,7 +88,13 @@ politicsAvgScore = mean(data$score)
 
 politicsTotal = count(data)
 
-findProfilicAuthors(data$author, "/r/Politics")
+politicsUniqueauthors <- unique(data$author)
+
+politicsUniqueauthors <- distinct(as.data.frame(politicsUniqueauthors))
+
+politicsUniqueauthors = count(politicsUniqueauthors)
+
+#findProfilicAuthors(data$author, "/r/Politics")
 
 data = stream_in(file("data/GlobalOffensive.json"), pagesize = 5000)
 
@@ -84,7 +102,13 @@ GlobalOffensiveAvgScore = mean(data$score)
 
 GlobalOffensiveTotal = count(data)
 
-findProfilicAuthors(data$author, "/r/GlobalOffensive")
+CSGOuniqueauthors <- unique(data$author)
+
+CSGOuniqueauthors <- distinct(as.data.frame(CSGOuniqueauthors))
+
+CSGOuniqueauthors = count(CSGOuniqueauthors)
+
+#findProfilicAuthors(data$author, "/r/GlobalOffensive")
 
 data = stream_in(file("data/LateStageCapitalism.json"), pagesize = 5000)
 
@@ -93,35 +117,39 @@ LateStageCapAvgScore = mean(data$score)
 
 LateStageCapTotal = count(data)
 
-uniqueauthors <- unique(data$author)
+LateStageCapuniqueauthors <- unique(data$author)
 
+LateStageCapuniqueauthors <- distinct(as.data.frame(LateStageCapuniqueauthors))
+
+LateStageCapuniqueauthors = count(LateStageCapuniqueauthors)
+
+#############OLD TEST CODE####################
 #get profilic authors
 
-for(authors in uniqueauthors[1:1]) {
-  authorCount = sum(str_count(authors, data$author))
-  authorData <- data.frame(authors, authorCount)
-}
+#for(authors in uniqueauthors[1:1]) {
+#  authorCount = sum(str_count(authors, data$author))
+#  authorData <- data.frame(authors, authorCount)
+#}
 
-total = count(as.data.frame(uniqueauthors))
-
-for(authors in uniqueauthors[2:total$n]) {
-  
-  print(paste("PARSING ", authors))
-  authorCount = sum(str_count(authors, data$author))
-  currentAuthor <- data.frame(authors, authorCount)
-  authorData <- rbind(authorData, currentAuthor)
-  
-}
+#total = count(as.data.frame(uniqueauthors))
+#
+#for(authors in uniqueauthors[2:total$n]) {
+#  
+#  print(paste("PARSING ", authors))
+#  authorCount = sum(str_count(authors, data$author))
+#  currentAuthor <- data.frame(authors, authorCount)
+#  authorData <- rbind(authorData, currentAuthor)
+#
+#}
 
 #get top 10
 
-authorData <- authorData[with(authorData, order(-authorCount)),]
+#authorData <- authorData[with(authorData, order(-authorCount)),]
 
-authorDataFiltered <- authorData[1:40,]
+#authorDataFiltered <- authorData[1:40,]
 
-findProfilicAuthors(data$author, "/r/LateStageCapitalism")
-
-authors = data$author
+#findProfilicAuthors(data$author, "/r/LateStageCapitalism")
+#############
 
 data = stream_in(file("data/PUBATTLEGROUNDS.json"), pagesize = 5000)
 
@@ -129,7 +157,12 @@ pubgAvgScore = mean(data$score)
 
 pubgTotal = count(data)
 
-findProfilicAuthors(data$author, "/r/PUBATTLEGROUNDS")
+PUBGuniqueauthors <- unique(data$author)
+
+PUBGuniqueauthors <- distinct(as.data.frame(PUBGuniqueauthors))
+
+PUBGuniqueauthors = count(PUBGuniqueauthors)
+#findProfilicAuthors(data$author, "/r/PUBATTLEGROUNDS")
 
 data = stream_in(file("data/FortNiteBR.json"), pagesize = 5000)
 
@@ -137,7 +170,13 @@ fortniteBRScore = mean(data$score)
 
 fortniteBRTotal = count(data)
 
-findProfilicAuthors(data$author, "/r/FortNiteBR")
+FortNiteuniqueauthors <- unique(data$author)
+
+FortNiteuniqueauthors <- distinct(as.data.frame(FortNiteuniqueauthors))
+
+FortNiteuniqueauthors = count(FortNiteuniqueauthors)
+
+#findProfilicAuthors(data$author, "/r/FortNiteBR")
 
 data = stream_in(file("data/unitedkingdom.json"), pagesize = 5000)
 
@@ -145,7 +184,13 @@ ukTotal = count(data)
 
 ukAvgScore = mean(data$score)
 
-findProfilicAuthors(data$author, "/r/UnitedKingdom")
+UKuniqueauthors <- unique(data$author)
+
+UKuniqueauthors <- distinct(as.data.frame(UKuniqueauthors))
+
+UKuniqueauthors = count(UKuniqueauthors)
+
+#findProfilicAuthors(data$author, "/r/UnitedKingdom")
 
 data = stream_in(file("data/canada.json"))
 
@@ -153,7 +198,13 @@ canadaScore = mean(data$score)
 
 canadaTotal = count(data)
 
-findProfilicAuthors(data$author, "/r/canada")
+Canadauniqueauthors <- unique(data$author)
+
+Canadauniqueauthors <- distinct(as.data.frame(Canadauniqueauthors))
+
+Canadauniqueauthors = count(Canadauniqueauthors)
+
+#findProfilicAuthors(data$author, "/r/canada")
 
 data = stream_in(file("data/australia.json"))
 
@@ -161,15 +212,31 @@ australiaTotal = count(data)
 
 ausScore = mean(data$score)
 
-findProfilicAuthors(data$author, "/r/Australia")
+Australiauniqueauthors <- unique(data$author)
 
-avgsData <- round(c(dankmemesAvgScore, fortniteBRScore, GlobalOffensiveAvgScore, LateStageCapAvgScore, politicsAvgScore, pubgAvgScore, thedonaldAvgScore, ukScore, canadaScore, ausScore), 2)
+Australiauniqueauthors <- distinct(as.data.frame(Australiauniqueauthors))
+
+Australiauniqueauthors = count(Australiauniqueauthors)
+
+#findProfilicAuthors(data$author, "/r/Australia")
+uniqueAuthorData <-c(dankmemesUniqueauthors$n, FortNiteuniqueauthors$n, CSGOuniqueauthors$n, LateStageCapuniqueauthors$n, politicsUniqueauthors$n, PUBGuniqueauthors$n, donaldUniqueauthors$n, UKuniqueauthors$n, Canadauniqueauthors$n, Australiauniqueauthors$n)
+avgsData <- round(c(dankmemesAvgScore, fortniteBRScore, GlobalOffensiveAvgScore, LateStageCapAvgScore, politicsAvgScore, pubgAvgScore, thedonaldAvgScore, ukAvgScore, canadaScore, ausScore), 2)
 totalsData <- round(c(dankmemesTotal$n, fortniteBRTotal$n, GlobalOffensiveTotal$n, LateStageCapTotal$n, politicsTotal$n, pubgTotal$n, thedonaldTotal$n, ukTotal$n, australiaTotal$n, canadaTotal$n), 2)
 totalsLabel <- c("DankMemes", "FortniteBR", "GlobalOffensive", "LateStageCap", "Politics", "PUBATTLEGROUNDS", "TheDonald", "UK", "Australia", "Canada")
 
-totals.data <- data.frame(totalsLabel, totalsData, avgsData)
+totals.data <- data.frame(totalsLabel, totalsData, avgsData, uniqueAuthorData)
 
-write.table(totals.data)
+meanAuthorCount <- mean(uniqueAuthorData)
+
+meanAverages <- mean(avgsData)
+
+meanTotals <- mean(totalsData)
+
+totals.averages <- data.frame(meanAuthorCount, meanAverages, meanTotals)
+
+write.csv(totals.averages, "totalaverages.csv")
+
+write.csv(totals.data, "averagesandcounts.csv")
 
 totals.data2 <- totals.data[order(totals.data[,2], decreasing = TRUE),]
 
