@@ -20,4 +20,4 @@ SciHub
 https://sci-hub.tw/
 
 # Example Wordcloud
-![alt text](https://github.com/Medscootsman/RedditStudy/blob/master/graphs/wordcloud_DankMemes.png "Dank Memes Wordcloud")
+![alt text](https://github.com/Medscootsman/RedditStudy/blob/master/graphs/GlobalOffensive/wordcloud_rcsgo.png "Dank Memes Wordcloud")
