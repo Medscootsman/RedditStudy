@@ -1,6 +1,9 @@
 \documentclass{template}
-\usepackage{graphicx,parskip,bibunits,appendix,float}
+\usepackage{graphicx,parskip,bibunits,appendix,float, csvsimple}
 \usepackage[ruled] {algorithm2e}
+\usepackage{listings}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[margin=0.5in]{geometry}
 \usepackage{url,amsmath,amssymb,fancybox,listings,pdfpages,caption,multicol,datetime,rotating, booktabs, subcaption}
 %\usepackage[usenames,dvipsnames]{color}
 \usepackage[pagebackref=false,pdffitwindow=true]{hyperref}
@@ -13,10 +16,11 @@
 %NOTE: More packages may need to be added to provide additional functionality
 
 \hypersetup{
-    pdftitle    = {Report Title},
-    pdfauthor   = {Author Name},
-    pdfsubject  = {Subject Area},
-    pdfkeywords = {Comma separated list of keywords},
+    pdftitle    = {Investigating Factors Affecting the
+Classification of Successful Reddit Comments},
+    pdfauthor   = {Murray Lyne, Andrew McLeman, Scott Thomson, Jordan Youngman, Joe McDonald},
+    pdfsubject  = {Computer Science},
+    pdfkeywords = {Reddit, Data, Classification, neural network, Text Mining, Social Media, cross-entropy},
     colorlinks  = true, anchorcolor = blue, filecolor = blue, urlcolor = blue,
     linkcolor   = blue,    %NOTE: change (blue) to (colIdentifier) to have links within the document in Black
     citecolor   = blue,    %NOTE: change (blue) to (colIdentifier) to have citation links within the document in Black
@@ -41,27 +45,26 @@
 \newtheorem{Definition}[Theorem]{Definition}
 
 %NOTE: Setup for including program listings
-\lstset{%
-    float=H,
-    basicstyle=\ttfamily\footnotesize,
-    identifierstyle=\color{colIdentifier},
-    keywordstyle=\color{colIdentifier}, %
-    stringstyle=\color{colIdentifier},
-    commentstyle=\color{colIdentifier}, %
-    columns=flexible,
-    tabsize=2,
-    frame=single,
-    extendedchars=true, %
-    showspaces=false,
-    showstringspaces=false,
-    numbers=left, %
-    numberstyle=\footnotesize,
-    breaklines=true,
-    prebreak={\space\MyHookSign},
-    language=Java,
-    backgroundcolor=\color{colBackGrnd},
-    breakautoindent=true, %
-    captionpos=b%
+\lstset{ 
+  language=R,
+  basicstyle=\tiny\ttfamily,      
+  numbers=left,                   
+  numberstyle=\tiny\color{Blue},  
+  stepnumber=1,                   
+  numbersep=5pt,                  
+  backgroundcolor=\color{white},  
+  showspaces=false,               
+  showstringspaces=false,         
+  showtabs=false,                 
+  frame=single,                   
+  rulecolor=\color{black},        
+  tabsize=2,                      
+  captionpos=b,                   
+  breaklines=true,                
+  breakatwhitespace=false,        
+  keywordstyle=\color{RoyalBlue}, 
+  commentstyle=\color{YellowGreen},
+  stringstyle=\color{ForestGreen} 
 } %\hypersetup{colorlinks=true, citecolor=\color{colIdentifier}}
 
 \sloppy %NOTE: To ensure the Right Hand Margin is used (Especially for long URLS)
@@ -73,8 +76,8 @@
 %NOTE: When inserting Figures if the extension of the graphic file is not provided LaTeX will automatically search
 % for the extensions declared above, in the order declared.
 
-\title{\huge{Processing what makes a good reddit comment}}
-\author{Andrew McLeman, Joe McDonald, Jordan Youngman, Murray Lyne, Scott Thomson}
+\title{\huge{Investigating Factors Affecting the Classification of Successful Reddit Comments}}
+\author{Group 6 - Andrew McLeman (1809076), Joe McDonald (1611267), Jordan Youngman (1607731), Murray Lyne (1607084), Scott Thomson (1508551)}
 \degreetitle{MSc in Cyber Security} % Replace with appropriate degree
 \rpttype{MSc}    % Replace MSc with BSc for Honours Degree Year projects.
 \principaladviser{Eyad Elyan}
@@ -91,18 +94,15 @@
 \include{research/research}
 \include{method/method}
 \include{results/results}
-\include{discussion/discussion}
 \include{conclusion/conclusion}
+\include{management/management}
 
 \footnotesize  %NOTE: reduced the size of the text for the bibliography
 %NOTE: set the style for the bibliography and display the references used within the document
 \bibliographystyle{vancouver}
-
 \bibliography{thesis}
-
-
-
 \normalsize
 \appendix
-%\include{appendix/appendix}
+\include{appendix/appendix}
+\include{appendix/appendix2}
 \end{document} %NOTE: END of document, nothing after this point

@@ -1,11 +1,16 @@
 \chapter{Conclusion}\label{ch:Conclusion}
 
-This chapter summarises the main outcomes and conclusions resulting from this body of work.
+\section{Main Conclusions from Analysis and Experiment}
 
-\section{Conclusions}
+This report concludes that it is indeed possible to build a classification model to determine whether a Reddit comment will be successful or not. The accuracy achieved by the model is satisfactory. Initial experiments with the neural network revealed that the body of a comment can provide a suitably accurate classifier of success. Further experimentation revealed that the topic of the post which the comment is attached to is also highly relevant in predicting popular comments. By taking this into consideration, the classification accuracy increased by 17\%. With more features, it should be possible to increase the classification accuracy further. As it stands, this model could be successfully used by an individual to determine whether their comment would be successful or not within a chosen Reddit community.
 
-The main conclusions that may be drawn from the body of work.
+The cursory experiments with linear regressions show how various factors can affect the chance of success of a Reddit comment. Although intuitive, it was found that there was a strong correlation between the success of a comment and the age of the post at the time the comment was made. A strong correlation was also found between the success of a comment and how deep the comment is within the comment chain. It can thus be concluded that to increase the chance of having a successful comment, the comment should be posted as early as possible, and it should be responding directly to a post. It was also revealed through analysis of the success of comments over the course of the day, and week, that to maximise the chance of success, a comment should be posted around midday and preferably on the weekend.
+
 
 \section{Future Work}
 
-Further development that could be carried out in the future.
+Future work based on this research would attempt to improve the accuracy of the classification model. To improve the accuracy of this model it would be required to better deal with the number of variables involved. There are two ways that this could be done. Firstly, additional data could be added as an input to the neural network in the hope it can notice more nuanced patterns in the data. Such data might take the form of information about the time of day. The second method would be to remove the variables entirely by selecting comments which are only from a specific time of day. The reason this was not done as part of this research was because it would require a much larger dataset to achieve. Overall, this research could be improved by starting with a much larger dataset of comments.
+
+Future work could also revolve around using the classification model to generate realistic examples of good Reddit comments that are themed around each Subreddit to highlight differences in attitude among Reddit communities.
+
+It could also be worthwhile creating experiments with a specific user's posts, trying to predict what they could post in certain Subreddits based on their history. This could create ethical implications in mirroring behaviour from real users, and how the results are showed and displayed should be handled with care, given how certain users can post in not-safe-for-work Subreddits.

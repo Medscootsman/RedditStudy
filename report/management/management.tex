@@ -1,0 +1,38 @@
+\chapter{Project Management}\label{ch:Management}
+
+\section{Tools used}
+To organise team management related files, we used Google Docs\footnote{\url{https://docs.google.com/}} to write spreadsheets and draft documents. This benefited productivity because it was possible to edit these documents on any device with internet access. The service is also free of charge to use.
+
+For team discussion and any meetings, the VoIP program Discord\footnote{\url{https://discordapp.com/}} was used for online discussion. Discord has built in features for automating team management, and despite being advertised for gaming hobbyists, it is a great alternative to Skype that is lightweight, does not require a client program and can be used on a web browser and is free to use. A Discord server was created to do any meetings and discussions, as well as used a web-hook extension for our GitHub to get real time updates on the GitHub repository used.
+
+For writing R code, Git\footnote{\url{https://git-scm.com/}} was used to track changes across the script files. A private GitHub\footnote{\url{https://github.com/Medscootsman/RedditStudy}} repository was created to push changes to a centralised storage. As mentioned earlier, Discord's web-hook functionality was used to get real time information via a discord web-hook bot. This improved productivity and kept our work safe from any catastrophic accidents with our own devices. Production of R code was done on the RStudio IDE\footnote{\url{https://www.rstudio.com/}}.
+
+For writing the report, we used RStudio in tandem with GitHub initially, however this proved to be prone to overwrite issues. To overcome this, Overleaf\footnote{\url{https://www.overleaf.com}} , a collaborative LaTeX editor was used. Overleaf made compiling the document very straightforward, and could be done automatically after every change. Premium features allowed users to track changes, though it was decided to use the free version due to the scope of the project.
+
+\section{Team Meetings}
+Please see \autoref{tab:meetings} for our meetings record. In summary, attendance was excellent and fruitful discussions on the project were held. Any time team members didn't show up there was valid justification for their absence.
+\begin{table}[!ht]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+         \bfseries Week & \bfseries Date & \bfseries Topic & \bfseries Andrew & \bfseries Joe & \bfseries Jordan & \bfseries Murray & \bfseries Scott
+         \csvreader[head to column names]{tableData/meetings.csv}{}
+         {\\\hline\week & \date & \topic & \Andrew & \Joe & \Jordan & \Murray & \Scott}
+    \end{tabular}
+    }
+    \caption{\textit{Meetings record}}
+    \label{tab:meetings}
+\end{table}
+
+\section{Peer Review Assessment}
+Please see our peer review in \autoref{tab:peer}.
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{c|c|c|c|c|c}
+         \bfseries Peer reviewer & \bfseries Andrew & \bfseries Joe & \bfseries Jordan & \bfseries Murray & \bfseries Scott
+         \csvreader[head to column names]{tableData/peers.csv}{}
+         {\\\hline\PeerReview & \Andrew & \Joe & \Jordan & \Murray & \Scott}
+    \end{tabular}
+    \caption{\textit{peer assessment}}
+    \label{tab:peer}
+\end{table}

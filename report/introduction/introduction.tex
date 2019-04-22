@@ -1,18 +1,49 @@
 \chapter{Introduction}
 \pagenumbering{arabic} \setcounter{page}{1}
 
-The goal of this paper was to determine what makes a good comment on the social media platform known as Reddit. This research was done to not only help people realise how to form an adequate post that can prove to be popular but also help train chatbots to make them seem more lifelike and to give the illusion of human speech. The data was parsed using a parser to filter down the comments of each subreddit. This made it easier to define a context for analysis. This research can prove to be useful for a number of reasons such as the previously mentioned training of AI. It could also be useful for the likes of marketing companies who need to know how to best target their online content to a wider audience. It may also be of great interest to the likes of politicians to see which side the general public stand on political events. The hypothesis of this paper would be that comments don’t stick to a predetermined formula. Their success is instead determined by varying factors such as time of post, captivating or “clickbait” titles and how relevant it is with today's current events.
-
-
 \section{Background}
+Social media has seen a tremendous increase in popularity over the past two decades. Starting out as a simple website used to make new friends, social media has evolved to become an essential tool used every day by billions of people. The types of social media that exist today has also grown to include media sharing networks like YouTube, and content sharing and discussion forums such as Reddit.
 
-Reddit is an online Score aggregator Website. It is used for a wide variety of discussions and by all kinds of communities.
+The vast number of users who engage with social media each day has made social media platforms an attractive location for businesses to market their products by creating brand profiles. These profiles allow businesses to create posts about their new products which can be seen by potentially millions of users. As well as this, social media has become a prominent tool in the political sphere as a way for politicians to present their campaigns and policies to potential voters. Mazzoleni \cite{10} states that “The media have become indispensable actors within the political domain” which is true for all social media platforms that exist today.
+
+Regardless of whether the motivation is financial or political it is important that whatever post is made to social media is structured in such a way as to attract the most attention as possible. Creating a successful social media post can pose an issue for individuals who are unfamiliar with the nuances of the platform they are using, or the communities which they are engaging with. 
+
+This problem is particularly prevalent on the extremely popular discussion forum Reddit. Reddit by its very nature separates its user base into distinct communities called subreddits. For a subreddit such as politics, it may be difficult for a new user to determine the opinions of the community regarding certain politicians or political topics. It would be beneficial to have this information before a post is made to avoid discussing controversial issues.
+
+This report will focus solely on the Reddit social media platform due to the availability of access to all posts and comments on the platform.
+
+
+\section{Motivation}
+The ability to determine the success of a social media post before it is posted would be a tremendous asset to any marketing campaign, from both a business and political perspective. This research would allow an individual to evaluate the success of a post based upon its content and would allow the user to determine optimal content to achieve the most success possible within a specific community.
+
+This research would also be useful in providing a method to determine the sentiment of a specific community towards certain topics over time. Businesses, such as a gaming company, could use this to determine the public perception towards a new game release, or a new update for the game.
+
+\section{Objectives}
+\begin{enumerate}
+\item To evaluate how various factors affect the success of a post on Reddit.
+\item To use linear regression to create predictive score models.
+\item To perform exploratory text mining of comments within a set of Reddit communities to determine commonly used words and topics discussed.
+\item To develop a binary classification model, based on a neural network approach, to predict whether a comment is successful or not based upon the textual content of a comment.
+\end{enumerate}
+
+\section{Ethical Considerations}
+The dataset used as part of this research is publicly available and does not contain any publicly identifiable information.
 
 \section{About this Thesis}
-This is the thesis of \emph{Insert Full Name Here}, submitted as part of the requirements for the degree of MSc Computing: Software Technology at the School of Computing, Robert Gordon University, Scotland.
+This is a report produced based on research carried out as part of the requirements for the MSc Cyber Security module CMM507 Professional Development and Research Skills at the School of Computing, Robert Gordon University, Scotland.
+The research and subsequent report were carried out by Team 6, consisting of the following students:
+Andrew McLeman, Joe McDonald, Jordan Youngman, Murray Lyne, Scott Thomson
 
-A number of paragraphs detailing the main expectations of this body of work.
+\section{Chapter List}
+This report will be organised as follows:
 
+\textbf{Chapter 2} presents the literature review that was carried out and discusses any research which attempted to analyse social media content using predictive or psychological models.
 
-\section{Conclusion}
-A short conclusion summarising the chapter.
+\textbf{Chapter 3} discusses the initial exploratory actions taken on the dataset, and steps taken to sanitise and prepare the dataset for experiments. This chapter then describes attributes of interest for linear modelling experiments. This chapter concludes with a discussion of the text-analysis carried out on the data, and steps taken to prepare the data for input into a neural network.
+
+\textbf{Chapter 4} demonstrates the results from the experiments discussed within the previous chapter.
+
+\textbf{Chapter 5} states and discusses the conclusions drawn from the experiments carried out as part of the research. It also examines experimental limitations of the work carried out and presents recommendations which could improve future research into this area.
+
+\textbf{Chapter 6} discusses how the project was organised, and the various tools used in order to manage the project.
+
